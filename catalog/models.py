@@ -87,7 +87,7 @@ class BookInstance(models.Model):
         """
         String for representing the Model object
         """
-        return '%s (%s)' % (self.id,self.book.title)
+        return '%s (%s) (%s) %s' % (self.status,self.due_back,self.id,self.book.title)
 
 
 
