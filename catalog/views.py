@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views import generic
 from .models import Book, BookInstance, Author
 
 # Create your views here.
@@ -23,3 +24,20 @@ def index(request):
             'num_instances_available':num_instances_available, \
             'num_authors':num_authors, 'title': 'Как то, так'},
     )
+
+class BookListView(generic.ListView):
+    model = Book
+
+    def get_queryset(self):
+        # return Book.objects.filter(title__icontains='war')[:5] # Получить 5 книг, содержащих 'war' в заголовке
+        return Book.objects.all() # Получить 5 книг, содержащих 'war' в заголовке
+
+    def get_context_data(self, **kwargs):
+        # В первую очередь получаем базовую реализацию контекста
+        context = super(BookListView, self).get_context_data(**kwargs)
+        # Добавляем новую переменную к контексту и инициализируем её некоторым значением
+        context['some_data'] = 'This is just some data'
+        return context
+
+class BookDetailView(generic.DetailView):
+    model = Book
