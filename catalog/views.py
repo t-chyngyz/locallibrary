@@ -27,10 +27,11 @@ def index(request):
 
 class BookListView(generic.ListView):
     model = Book
-
-    def get_queryset(self):
-        # return Book.objects.filter(title__icontains='war')[:5] # Получить 5 книг, содержащих 'war' в заголовке
-        return Book.objects.all() # Получить 5 книг, содержащих 'war' в заголовке
+    context_object_name = 'book_list'   # ваше собственное имя переменной контекста в шаблоне
+    # queryset = Book.objects.filter(title__icontains='war')[:5] # Получение 5 книг, содержащих слово 'war' в заголовке
+    # template_name = 'books/my_arbitrary_template_name_list.html'  # Определение имени вашего шаблона и его расположения
+    # def get_queryset(self):
+    #     return Book.objects.filter(title__icontains='war')[:5] # Получить 5 книг, содержащих 'war' в заголовке
 
     def get_context_data(self, **kwargs):
         # В первую очередь получаем базовую реализацию контекста
